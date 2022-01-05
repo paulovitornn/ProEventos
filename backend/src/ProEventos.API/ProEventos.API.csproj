@@ -20,6 +20,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProEventos.Application\ProEventos.Application.csproj" />
+    <ProjectReference Include="..\ProEventos.Application\ProEventos.Domain.csproj" />
+    <ProjectReference Include="..\ProEventos.Application\ProEventos.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
