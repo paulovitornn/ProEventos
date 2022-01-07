@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProEventos.Domain;
-using ProEventos.Persistence.Contexto;
+using ProEventos.Persistence.Contextos;
 using ProEventos.Persistence.Contratos;
 
 namespace ProEventos.Persistence
@@ -35,7 +35,7 @@ namespace ProEventos.Persistence
             return await query.ToArrayAsync();
         }
 
-        public async Task<Evento> GetAllEventosByIdAsync(int eventoId, bool includePalestrantes = false)
+        public async Task<Evento> GetEventosByIdAsync(int eventoId, bool includePalestrantes = false)
         {
             
             IQueryable<Evento> query = _context.Eventos
