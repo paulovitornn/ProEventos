@@ -1,5 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Evento } from '../models/Evento';
+import { EventoService } from '../services/evento.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-eventos',
@@ -7,12 +10,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./eventos.component.scss']
 })
 export class EventosComponent implements OnInit {
-  public eventos: any = [];
-  public eventosFiltrados: any = [];
+
+  modalRef?: BsModalRef;
+  message?: string;
+
+  public eventos: Evento[] = [];
+  public eventosFiltrados: Evento[] = [];
   widthImg : number = 150;
   marginImg : number = 2;
   mostrarImagem : boolean = false;
   private _filtroLista : string = '';
+
+  constructor(
+    private eventoService: EventoService,
+    private modalService: BsModalService,
+    private toastr: ToastrService) { }
+
+    ngOnInit(): void {
+    this.getEvents();
+  }
 
   public get filtroLista(){
     return this._filtroLista;
@@ -32,34 +48,29 @@ export class EventosComponent implements OnInit {
     )
   }
 
-
-  constructor(private http: HttpClient) { }
-
-  ngOnInit(): void {
-    this.getEvents();
-  }
-
-  getEventosStatic(){
-     this.eventos = [
-      {
-      tema:"teste",
-      local:"testeLocal"
-      },
-      {
-      tema:"teste2",
-      local:"testeLocal2"
-      }
-    ];
-  }
-
   getEvents() :void {
-    this.http.get('https://localhost:5001/api/eventos').subscribe(
-      response => {
-        this.eventos = response
-        this.eventosFiltrados = response
+    this.eventoService.getEvento().subscribe(
+      (eventos: Evento[]) => {
+        this.eventos = eventos
+
+        this.eventosFiltrados = eventos
       },
       error => console.log(error)
     )
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+
+  confirm(): void {
+    this.toastr.success('Hello world!', 'Toastr fun!');
+    this.modalRef?.hide();
+  }
+
+  decline(): void {
+    this.toastr.success('Hello world!', 'Toastr fun!');
+    this.modalRef?.hide();
   }
 
 }
