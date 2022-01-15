@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Constants {}\nConstants.DATE_FMT = 'dd/MM/yyyy';\nConstants.DATE_TIME_FMT = `${Constants.DATE_FMT} hh:mm`;","map":null,"metadata":{},"sourceType":"module"}

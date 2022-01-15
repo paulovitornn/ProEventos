@@ -15,7 +15,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
-//import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { EventoService } from './services/evento.service';
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
@@ -43,11 +43,11 @@ import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
       progressBar: true
-    })//,
-    //NgxSpinnerModule
+    }),
+    NgxSpinnerModule
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [EventoService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
