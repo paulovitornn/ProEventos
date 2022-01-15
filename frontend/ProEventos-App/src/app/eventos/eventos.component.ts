@@ -24,7 +24,8 @@ export class EventosComponent implements OnInit {
   constructor(
     private eventoService: EventoService,
     private modalService: BsModalService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService
+    ) { }
 
     ngOnInit(): void {
     this.getEvents();
