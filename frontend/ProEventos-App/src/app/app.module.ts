@@ -19,6 +19,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { EventoService } from './services/evento.service';
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
+import { TituloComponent } from './Titulo/Titulo.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { ContatosComponent } from './contatos/contatos.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,14 @@ import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
     EventosComponent,
     PalestrantesComponent,
     NavComponent,
-    DateTimeFormatPipe
+    DateTimeFormatPipe,
+    ContatosComponent,
+    DashboardComponent,
+    PerfilComponent,
+    TituloComponent,
+      DashboardComponent,
+      PerfilComponent,
+      ContatosComponent
    ],
   imports: [
     BrowserModule,
