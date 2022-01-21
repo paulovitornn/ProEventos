@@ -1,19 +1,31 @@
-<app-Titulo [titulo]="'Eventos'"></app-Titulo>
-<div class="form-inline">
-  <div class="form-group mb-2">
-    <label class="mr-2">Filtro:</label>
-    <input type="text"
-    class="form-control mr-2"
-    placeholder="buscar"
-    [(ngModel)]="filtroLista">
-  </div>
-</div>
+<app-Titulo [titulo]="'Eventos'" [iconClass]="'fa fa-calendar'" [botaoListar]="true"></app-Titulo>
+<div class="card rounded shadow-sm p-3">
+  <div class="d-flex">
+    <div class="flex-fill pr-3">
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Filtro:</div>
+        </div>
+        <input type="text"
+        class="form-control p-3"
+        placeholder="Filtrar por tema e local"
+        [(ngModel)]="filtroLista">
+      </div>
+    </div>
+    <div>
+      <a class="d-flex btn btn-outline-primary" href="#">
+        <i class="fa fa-plus-circle my-1"></i>
+        <b class="ml-1 d-none d-sm-block">Novo</b>
+      </a>
+    </div>
 
-<table class="table table-striped">
-  <thead class="thead-dark">
-    <tr>
-      <th >
-        <button
+  </div>
+
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th  class="d-none d-md-table-cell">
+          <button
           (click)="mostrarImagem = !mostrarImagem"
           class="btn btn-outline-light btn-sm">
           <i class="{{mostrarImagem ? 'fa fa-eye' : 'fa fa-eye-slash'}} "></i>
@@ -22,16 +34,16 @@
       </th>
       <th>#</th>
       <th>Tema</th>
-      <th>Local</th>
+      <th class="d-none d-md-table-cell">Local</th>
       <th>Data</th>
-      <th>Qtd Pessoas</th>
-      <th>Lote</th>
+      <th class="d-none d-md-table-cell">Qtd Pessoas</th>
+      <th class="d-none d-md-table-cell">Lote</th>
       <th>Opções</th>
     </tr>
   </thead>
   <tbody *ngIf="eventos && eventos.length">
     <tr *ngFor="let evento of eventosFiltrados">
-      <td >
+      <td  class="d-none d-md-table-cell">
         <div [collapse]="mostrarImagem" [isAnimated]="true">
           <img src="/assets/{{evento.imagemURL}}" alt=""
           [style.width.px]="widthImg"
@@ -41,38 +53,36 @@
       </td>
       <td>{{evento.id}}</td>
       <td>{{evento.tema}}</td>
-      <td>{{evento.local}}</td>
+      <td class="d-none d-md-table-cell">{{evento.local}}</td>
       <td>{{evento.dataEvento | DateTimePipe}}</td>
-      <td>{{evento.qtdPessoas}}</td>
-      <td>{{evento.lotes[0].nome}}</td>
+      <td class="d-none d-md-table-cell">{{evento.qtdPessoas}}</td>
+      <td class="d-none d-md-table-cell">{{evento.lotes[0].nome}}</td>
       <td>
         <div class="btn-group">
-          <button class="btn btn-primary btn-sm" tooltip="Editar">
-            <i class="fa fa-edit"></i>
-            <!-- Editar --></button>
-          <button class="btn btn-danger btn-sm" tooltip="Excluir" (click)="openModal(template)">
-            <i class="fa fa-trash"></i>
-            <!-- Excluir --></button>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-  <tfoot *ngIf="!eventos.length">
-    <tr>
-      <td colspan="8" class="text-center">
-        <h4>Nenhum evento encontrado</h4>
-      </td>
-    </tr>
-  </tfoot>
-</table>
-<!-- <div *ngFor="let evento of eventos">
-  <p><b>Tema:</b> {{evento.tema}}</p>
-  <p><b>Local:</b> {{evento.local}}</p>
-  <hr>
-</div>
- -->
+            <button class="btn btn-danger btn-lg" tooltip="Excluir" (click)="openModal(template)">
+              <i class="fa fa-trash"></i>
+              <!-- Excluir --></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot *ngIf="!eventos.length">
+        <tr>
+          <td colspan="8" class="text-center">
+            <h4>Nenhum evento encontrado</h4>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <!-- <div *ngFor="let evento of eventos">
+    <p><b>Tema:</b> {{evento.tema}}</p>
+    <p><b>Local:</b> {{evento.local}}</p>
+    <hr>
+  </div>
+-->
 
- <ng-template #template>
+<ng-template #template>
   <div class="modal-body text-center">
     <p>Confirma a exclusão deste evento?</p>
     <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
