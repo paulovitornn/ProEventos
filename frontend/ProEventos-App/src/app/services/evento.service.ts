@@ -10,15 +10,15 @@ export class EventoService {
 baseURL = "https://localhost:5001/api/eventos";
 constructor(private http: HttpClient) { }
 
-  getEvento(): Observable<Evento[]> {
+  public getEvento(): Observable<Evento[]> {
     return this.http.get<Evento[]>(this.baseURL);
   }
 
-  getEventoByTema(tema: string): Observable<Evento[]> {
+  public getEventoByTema(tema: string): Observable<Evento[]> {
     return this.http.get<Evento[]>(`${this.baseURL}/tema/${tema}`);
   }
 
-  getEventoById(idEvento:number): Observable<Evento> {
+  public getEventoById(idEvento:number): Observable<Evento> {
     return this.http.get<Evento>(`${this.baseURL}/idEvento/${idEvento}`);
   }
 
