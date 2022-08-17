@@ -1,19 +1,38 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">ProEventos</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container">
+  <a class="navbar-brand" routerLink="dashboard">ProEventos</a>
   <button (click)="isCollapsed = !isCollapsed" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" [collapse]="isCollapsed" [isAnimated]="true" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="eventos/lista">Eventos <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="palestrantes">Palestrantes</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="contatos">Contatos</a>
+      </li>
+    </ul>
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Eventos <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Palestrantes</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Contatos</a>
+      <li class="nav-item dropdown" style = "cursor: pointer;" dropdown>
+        <a dropdownToggle class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          PV
+        </a>
+        <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" routerLink="perfil">
+            Perfil
+          </a>
+          <div role="separator" class="divider"></div>
+          <a class="dropdown-item">
+            Sair
+          </a>
+        </div>
       </li>
     </ul>
   </div>
+</div>
 </nav>
