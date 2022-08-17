@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { EventosComponent } from './eventos/eventos.component';
+import { EventoDetalheComponent } from './eventos/evento-detalhe/evento-detalhe.component';
+import { EventoListaComponent } from './eventos/evento-lista/evento-lista.component';
 import { PalestrantesComponent } from './palestrantes/palestrantes.component';
 import { NavComponent } from './nav/nav.component';
 import { TituloComponent } from './Titulo/Titulo.component';
@@ -36,10 +38,12 @@ import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
     DashboardComponent,
     PerfilComponent,
     TituloComponent,
-      DashboardComponent,
-      PerfilComponent,
-      ContatosComponent
-   ],
+    DashboardComponent,
+    PerfilComponent,
+    ContatosComponent,
+    EventoDetalheComponent,
+    EventoListaComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
