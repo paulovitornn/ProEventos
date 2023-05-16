@@ -6,15 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { EventosComponent } from './eventos/eventos.component';
-import { EventoDetalheComponent } from './eventos/evento-detalhe/evento-detalhe.component';
-import { EventoListaComponent } from './eventos/evento-lista/evento-lista.component';
-import { PalestrantesComponent } from './palestrantes/palestrantes.component';
-import { NavComponent } from './nav/nav.component';
-import { TituloComponent } from './Titulo/Titulo.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { PerfilComponent } from './perfil/perfil.component';
-import { ContatosComponent } from './contatos/contatos.component';
+import { EventosComponent } from './componentes/eventos/eventos.component';
+import { EventoDetalheComponent } from './componentes/eventos/evento-detalhe/evento-detalhe.component';
+import { EventoListaComponent } from './componentes/eventos/evento-lista/evento-lista.component';
+import { PalestrantesComponent } from './componentes/palestrantes/palestrantes.component';
+import { NavComponent } from './componentes/nav/nav.component';
+import { TituloComponent } from './componentes/Titulo/Titulo.component';
+import { DashboardComponent } from './componentes/dashboard/dashboard.component';
+import { PerfilComponent } from './componentes/perfil/perfil.component';
+import { ContatosComponent } from './componentes/contatos/contatos.component';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -26,6 +26,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { EventoService } from './services/evento.service';
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
+import { UserComponent } from './componentes/user/user.component';
+import { LoginComponent } from './componentes/user/login/login.component';
+import { RegistrationComponent } from './componentes/user/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,10 @@ import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
     PerfilComponent,
     ContatosComponent,
     EventoDetalheComponent,
-    EventoListaComponent
+    EventoListaComponent,
+    UserComponent,
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
