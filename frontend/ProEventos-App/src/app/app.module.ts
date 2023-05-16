@@ -13,7 +13,7 @@ import { PalestrantesComponent } from './componentes/palestrantes/palestrantes.c
 import { NavComponent } from './componentes/nav/nav.component';
 import { TituloComponent } from './componentes/Titulo/Titulo.component';
 import { DashboardComponent } from './componentes/dashboard/dashboard.component';
-import { PerfilComponent } from './componentes/perfil/perfil.component';
+import { PerfilComponent } from './componentes/user/perfil/perfil.component';
 import { ContatosComponent } from './componentes/contatos/contatos.component';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
