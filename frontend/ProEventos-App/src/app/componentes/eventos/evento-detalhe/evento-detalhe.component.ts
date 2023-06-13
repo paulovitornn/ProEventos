@@ -16,6 +16,11 @@ export class EventoDetalheComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
+  loading = {
+    save: false,
+    page: false
+  }
+
   get f():any {
     return this.form.controls;
   }
@@ -38,6 +43,17 @@ export class EventoDetalheComponent implements OnInit {
     this.validation();
   }
 
+  setStatusLoaginda(x:number): void{
+    //1 - status loading save
+    //2 - status loading page
+    if(x==1){
+      this.loading.save = !this.loading.save;
+    }
+    else if (x==2){
+      this.loading.page = !this.loading.page;
+    }
+  }
+
   public validation(): void {
     this.form = this.fb.group({
       tema: ['',[Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
@@ -49,6 +65,7 @@ export class EventoDetalheComponent implements OnInit {
       imagemUrl: ['', Validators.required]
     });
   }
+
   public validationFormGroup(): void {
     this.form = new FormGroup({
       tema: new FormControl('',
@@ -65,6 +82,10 @@ export class EventoDetalheComponent implements OnInit {
       ),
       imagemUrl: new FormControl('', Validators.required)
     });
+  }
+
+  public resetForm():void {
+    this.form.reset();
   }
 
 }

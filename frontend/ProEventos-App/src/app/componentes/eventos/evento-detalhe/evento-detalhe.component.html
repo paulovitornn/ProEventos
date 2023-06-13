@@ -1,6 +1,8 @@
 <div class="card rounded shadow-sm">
   <form [formGroup]="form">
     <div class="p-3">
+      <!-- <p>Form value: {{form.value | json}}</p>
+      <p>Form valid: {{form.status | json}}</p> -->
       <div class="form-row">
         <div class="form-group col-md-12">
           <label>Tema</label>
@@ -83,7 +85,7 @@
           <div *ngIf="f.email?.errors?.required" class="invalid-feedback">
             campo de email é obrigatório.
           </div>
-          <div *ngIf="f.email?.errors?.email" class="invalid-feedback">
+          <div *ngIf="f.email?.errors?.email && f.email?.touched" class="invalid-feedback">
             email inválido.
           </div>
         </div>
@@ -92,7 +94,7 @@
           <input type="text" class="form-control"
           [ngClass]="{'is-invalid': f.imagemUrl?.errors && f.imagemUrl?.touched}"
           formControlName="imagemUrl" placeholder="Imagem URL">
-          <div *ngIf="f.imagemUrl?.errors?.required" class="invalid-feedback">
+          <div *ngIf="f.imagemUrl?.errors?.required && f.imagemUrl?.touched" class="invalid-feedback">
             imagem é obrigatória.
           </div>
         </div>
@@ -100,11 +102,12 @@
     </div>
     <div class="card-footer">
       <div class="d-flex">
-        <button class="btn btn-outline-secondary mr-auto border">
+        <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm()">
           Cancelar Alteração
         </button>
-        <button class="btn btn-success">
-          <span class="spinner-border spinner-border-sm mr-1"></span>
+        <button class="btn btn-success" [disabled]="!form.valid">
+          <span class="spinner-border spinner-border-sm mr-1"
+          *ngIf="loading.save"></span>
           Salvar Evento
         </button>
       </div>

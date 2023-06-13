@@ -1,55 +1,108 @@
 <div class="row mt-4">
 
-	<div class="col-md-6 d-none d-md-block" style="height: 450px;">
-		<div class="text-center col-md-12 my-auto side-heder">
-			<h1>Cadastro de Usuário</h1>
-			<img src="../../../../assets/registerImage.png" class="my-4" alt="" width="400px">
-		</div>
-	</div>
+  <div class="col-md-6 d-none d-md-block" style="height: 450px;">
+    <div class="text-center col-md-12 my-auto side-heder">
+      <h1>Cadastro de Usuário</h1>
+      <img src="../../../../assets/registerImage.png" class="my-4" alt="" width="400px">
+    </div>
+  </div>
 
-	<div class="col-md-6">
+  <div class="col-md-6">
 
-		<form class="p-1">
+    <form class="p-1" [formGroup]="form">
       <div class="pb-2 d-block d-md-none">
         <h3 class="border-bottom">Cadastro de Usuário</h3>
       </div>
       <div class="form-row">
         <div class="form-group col-sm-6">
           <label>Primeiro Nome</label>
-          <input type="text" class="form-control" placeholder="Insira o Primeiro nome" />
+          <input type="text" class="form-control"
+            [ngClass]="{'is-invalid': f.primeiroNome?.errors && f.primeiroNome?.touched}" formControlName="primeiroNome"
+            placeholder="Insira o Primeiro nome" />
+          <div *ngIf="f.primeiroNome.errors?.required" class="invalid-feedback">
+            o primeiro nome é obrigatório.
+          </div>
+          <div *ngIf="f.primeiroNome?.errors?.minlength" class="invalid-feedback">
+            o primeiro nome exige o mínimo de 4 caracteres.
+          </div>
+          <div *ngIf="f.primeiroNome?.errors?.maxlength" class="invalid-feedback">
+            o primeiro nome exige o máximo de 50 caracteres.
+          </div>
         </div>
         <div class="form-group col-sm-6">
           <label>Último nome</label>
-          <input type="text" class="form-control" placeholder="Insira o Último nome" />
+          <input type="text" class="form-control"
+            [ngClass]="{'is-invalid': f.ultimoNome?.errors && f.ultimoNome?.touched}" formControlName="ultimoNome"
+            placeholder="Insira o sobrenome" />
+          <div *ngIf="f.ultimoNome.errors?.required" class="invalid-feedback">
+            Sobrenome é obrigatório.
+          </div>
+          <div *ngIf="f.ultimoNome?.errors?.minlength" class="invalid-feedback">
+            Sobrenome exige o mínimo de 4 caracteres.
+          </div>
+          <div *ngIf="f.ultimoNome?.errors?.maxlength" class="invalid-feedback">
+            Sobrenome exige o máximo de 50 caracteres.
+          </div>
         </div>
       </div>
       <div class="form-group">
         <label for="">Email:</label>
-        <input class="form-control" type="text" placeholder="Insira o Nome Completo" />
+        <input class="form-control" type="text" placeholder="Insira o Nome Completo"
+          [ngClass]="{'is-invalid': f.email?.errors && f.email?.touched}" formControlName="email" />
+        <div *ngIf="f.email?.errors?.required" class="invalid-feedback">
+          campo de email é obrigatório.
+        </div>
+        <div *ngIf="f.email?.errors?.email && f.email?.touched" class="invalid-feedback">
+          email inválido.
+        </div>
       </div>
       <div class="form-group">
         <label for="">Usuario:</label>
-        <input class="form-control" type="text" placeholder="Insira o nome de Usuário" />
+        <input class="form-control" type="text" placeholder="Insira o nome de Usuário"
+          [ngClass]="{'is-invalid': f.usuario?.errors && f.usuario?.touched}" formControlName="usuario" />
+        <div *ngIf="f.usuario.errors?.required" class="invalid-feedback">
+          nome de usuario é obrigatório.
+        </div>
+        <div *ngIf="f.usuario?.errors?.minlength" class="invalid-feedback">
+          nome de usuario exige o mínimo de 4 caracteres.
+        </div>
+        <div *ngIf="f.usuario?.errors?.maxlength" class="invalid-feedback">
+          nome de usuario exige o máximo de 50 caracteres.
+        </div>
       </div>
       <div class="form-row">
         <div class="form-group col-sm-6">
           <label for="">Senha:</label>
-          <input class="form-control" type="password" placeholder="Digite uma Senha" />
+          <input class="form-control" type="password" placeholder="Digite uma Senha"
+            [ngClass]="{'is-invalid': f.senha?.errors && f.senha?.touched}" formControlName="senha" />
+          <div *ngIf="f.senha.errors?.required" class="invalid-feedback">
+            a senha é obrigatória.
+          </div>
+          <div *ngIf="f.senha?.errors?.minlength" class="invalid-feedback">
+            a senha exige o mínimo de 6 caracteres.
+          </div>
         </div>
         <div class="form-group col-sm-6">
           <label for="">Confirmar Senha:</label>
-          <input class="form-control" type="password" placeholder="Confirme a Senha" />
+          <input class="form-control" type="password" placeholder="Confirme a Senha"
+          [ngClass]="{'is-invalid': f.validacaoSenha?.errors && f.validacaoSenha?.touched}" formControlName="validacaoSenha" />
+          <div *ngIf="f.validacaoSenha.errors?.required" class="invalid-feedback">
+            a senha é obrigatória.
+          </div>
+          <div *ngIf="f.validacaoSenha.errors?.mustMatch" class="invalid-feedback">
+            a confirmação de senha deve ser igual a senha digitada.
+          </div>
         </div>
       </div>
       <div class="form-row p-1 mb-3">
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="customCheck1">
+          <input type="checkbox" class="custom-control-input" id="checkTermo" formControlName="termosDeUsoCheck">
           <label class="custom-control-label">Eu concordo com os <a href="#">Termos de Uso</a>.</label>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-12">
-          <button class="btn btn-lg btn-success btn-block px-5">
+          <button class="btn btn-lg btn-success btn-block px-5" [disabled]="!form.valid">
             Registar
           </button>
         </div>
@@ -63,5 +116,5 @@
       </div>
     </form>
 
-	</div>
+  </div>
 </div>
