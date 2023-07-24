@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProEventos.Domain;
 using ProEventos.Application.Contratos;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System;
+using ProEventos.Application.Dtos;
 
 namespace ProEventos.API.Controllers
 {
@@ -27,7 +27,7 @@ namespace ProEventos.API.Controllers
             try
             {
                 var eventos = await _eventosService.GetAllEventosAsync(true);
-                if (eventos == null) return NotFound("Nenhum evento foi encontrado.");
+                if (eventos == null) return NoContent(); //NotFound("Nenhum evento foi encontrado.");
 
                 return Ok(eventos);
             }
@@ -44,7 +44,7 @@ namespace ProEventos.API.Controllers
              try
             {
                 var evento = await _eventosService.GetAllEventosByIdAsync(id, true);
-                if (evento == null) return NotFound("Nenhum evento foi encontrado.");
+                if (evento == null) return NoContent();//NotFound("Nenhum evento foi encontrado.");
 
                 return Ok(evento);
             }
@@ -73,7 +73,7 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpPost("adicionarEvento")]
-         public async Task<IActionResult> Post(Evento model)
+         public async Task<IActionResult> Post(EventoDto model)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpPut("atualizarEvento/{idEvento}")]
-         public async Task<IActionResult> Put(int idEvento, Evento model)
+         public async Task<IActionResult> Put(int idEvento, EventoDto model)
         {
             try
             {
@@ -112,7 +112,8 @@ namespace ProEventos.API.Controllers
             try
             {
                 return await _eventosService.DeleteEventos(idEvento) ?
-                    Ok("Evento excluido com sucesso.") : BadRequest("Não foi encontrado o evento a ser excluido.");
+                    Ok("Evento excluido com sucesso.") : 
+                    BadRequest("Não foi encontrado o evento a ser excluido.");
 
                 /* forma alternativa para o mesmo resultado.
                 if (await _eventosService.DeleteEventos(idEvento)) 
