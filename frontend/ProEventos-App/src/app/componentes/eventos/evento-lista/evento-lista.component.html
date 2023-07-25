@@ -61,7 +61,7 @@
           <button class="btn btn-primary btn-sm" tooltip="Editar" (click)="detalheEvento(evento.id)">
             <i class="fa fa-edit"></i>
             <!-- Excluir --></button>
-            <button class="btn btn-danger btn-sm" tooltip="Excluir" (click)="openModal(templateDelete)">
+            <button class="btn btn-danger btn-sm" tooltip="Excluir" (click)="openModal(templateDelete, evento.id, evento.tema)">
               <i class="fa fa-trash"></i>
               <!-- Excluir --></button>
             </div>
@@ -77,16 +77,10 @@
       </tfoot>
     </table>
   </div>
-  <!-- <div *ngFor="let evento of eventos">
-    <p><b>Tema:</b> {{evento.tema}}</p>
-    <p><b>Local:</b> {{evento.local}}</p>
-    <hr>
-  </div>
--->
 
 <ng-template #templateDelete>
   <div class="modal-body text-center">
-    <p>Confirma a exclusão deste evento?</p>
+    <p>Confirma a exclusão do evento <b>{{eventoTema}}</b> de código <b>{{eventoId}}</b>?</p>
     <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
     <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
   </div>

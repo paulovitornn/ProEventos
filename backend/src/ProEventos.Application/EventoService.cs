@@ -80,8 +80,8 @@ namespace ProEventos.Application
                 var evento = await this.eventoPersist.GetEventosByIdAsync(eventoId, false);
                 if (evento == null) throw new Exception("O evento para delete, não foi encontrado.");
 
-                var resultado = this.mapper.Map<EventoDto>(evento);
-                this.geralPersist.Delete<EventoDto>(resultado);
+                //var resultado = this.mapper.Map<EventoDto>(evento); // inseri esse mapeamento acredito q por engano, pois ele nao faz nenhum sentido aqui. Ainda não exclui por precaução
+                this.geralPersist.Delete<Evento>(evento);
                 return await this.geralPersist.SaveChangesAsync();
 
             }

@@ -18,10 +18,16 @@ export class EventoDetalheComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
   evento = {} as Evento;
+  eventoId: number = 0;
+  estadoSalvar:string = 'post';
 
   loading = {
     save: false,
     page: false
+  }
+
+  get modoEditar(): boolean {
+    return this.estadoSalvar === 'put';
   }
 
   get f():any {
@@ -31,11 +37,12 @@ export class EventoDetalheComponent implements OnInit {
   get bsConfig () : any {
     return {
       adaptivePosition: true,
-      dateInputFormat: 'DD/MM/YYYY - HH:mm',
+      dateInputFormat: 'DD/MM/YYYY, hh:mm a',
       containerClass: 'theme-default',
       showWeekNumbers: false
      }
   }
+
 
   constructor(
     private eventoService: EventoService,
@@ -53,6 +60,7 @@ export class EventoDetalheComponent implements OnInit {
 
     if (eventoIdParam !== null){
       this.spinner.show();
+      this.estadoSalvar = 'put';
       this.eventoService.getEventoById(+eventoIdParam).subscribe({
         next:(evento: Evento) => {  //aqui também poderia utilizar apenas "() => {}""
           this.evento = {...evento}
@@ -121,6 +129,46 @@ export class EventoDetalheComponent implements OnInit {
 
   public cssValidator (campoForm: FormControl): any {
     return {'is-invalid': campoForm?.errors && campoForm?.touched};
+  }
+
+  public salvarAlteracao () : void {
+    this.spinner.show();
+    if(this.form.valid){
+
+      this.evento =
+        this.estadoSalvar=== 'post'
+          ? {...this.form.value}
+          : {id: this.evento.id, ...this.form.value};
+
+      if(this.estadoSalvar=== 'post'){
+        this.salvarNovoEvento()
+      } else {
+        this.salvarEdicaoEvento();
+      }
+    }
+  }
+  protected salvarNovoEvento (){
+    this.eventoService.postEvento(this.evento).subscribe(
+      () => this.toastr.success('Evento cadastrado com sucesso','Sucesso'),
+      (error:any) => {
+        console.log(error);
+        this.spinner.hide();
+        this.toastr.error('Erro ao salvar evento','Erro');
+      },
+      () => this.spinner.hide()
+    )
+  }
+
+  protected salvarEdicaoEvento(){
+    this.eventoService.putEvento(this.evento).subscribe(
+      () => this.toastr.success('Evento editado com sucesso','Sucesso'),
+      (error:any) => {
+        console.log(error);
+        this.spinner.hide();
+        this.toastr.error('Erro ao salvar alteração','Erro');
+      },
+      () => this.spinner.hide()
+    )
   }
 
 }

@@ -23,6 +23,8 @@ export class EventoListaComponent implements OnInit {
   marginImg : number = 2;
   mostrarImagem : boolean = true;
   private _filtroLista : string = '';
+  eventoId = 0;
+  eventoTema = '';
 
   constructor(
     private eventoService: EventoService,
@@ -69,17 +71,31 @@ export class EventoListaComponent implements OnInit {
     });
   }
 
-  openModal(template: TemplateRef<any>) {
+  openModal(template: TemplateRef<any>, eventoId: number, eventoTema: string) :void {
+    this.eventoId = eventoId;
+    this.eventoTema = eventoTema;
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
   confirm(): void {
-    this.toastr.success('Evento excluído com sucesso!');
     this.modalRef?.hide();
     this.spinner.show();
-    setTimeout(() =>{
-      this.spinner.hide();
-    },4000);
+
+    this.eventoService.deleteEvento(this.eventoId).subscribe(
+      (result:any) => {
+        console.log(result);
+        this.toastr.success(`Evento ${this.eventoTema} de código ${this.eventoId} foi excluído com sucesso!`);
+        this.getEvents();
+        this.spinner.hide();
+      },
+      (error:any) => {
+        console.log(error);
+        this.toastr.error(`Erro ao tentar excluir o evento ${this.eventoTema} de código ${this.eventoId}`, 'Erro')
+        this.spinner.hide();
+      },
+      () => this.spinner.hide(),
+    );
+
   }
 
   decline(): void {

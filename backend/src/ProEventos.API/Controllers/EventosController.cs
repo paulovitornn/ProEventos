@@ -111,9 +111,10 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                return await _eventosService.DeleteEventos(idEvento) ?
-                    Ok("Evento excluido com sucesso.") : 
-                    BadRequest("Não foi encontrado o evento a ser excluido.");
+                return await _eventosService.DeleteEventos(idEvento) 
+                    ? Ok(new {message = "Deletado"}) 
+                    : throw new Exception("Ocorreu um problema não especificado.");
+                    //BadRequest("Não foi encontrado o evento a ser excluido.");
 
                 /* forma alternativa para o mesmo resultado.
                 if (await _eventosService.DeleteEventos(idEvento)) 
