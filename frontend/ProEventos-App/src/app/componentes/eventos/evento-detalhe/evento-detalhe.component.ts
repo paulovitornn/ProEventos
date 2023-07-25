@@ -152,11 +152,9 @@ export class EventoDetalheComponent implements OnInit {
       () => this.toastr.success('Evento cadastrado com sucesso','Sucesso'),
       (error:any) => {
         console.log(error);
-        this.spinner.hide();
         this.toastr.error('Erro ao salvar evento','Erro');
-      },
-      () => this.spinner.hide()
-    )
+      }
+    ).add(() => this.spinner.hide());
   }
 
   protected salvarEdicaoEvento(){
@@ -164,11 +162,9 @@ export class EventoDetalheComponent implements OnInit {
       () => this.toastr.success('Evento editado com sucesso','Sucesso'),
       (error:any) => {
         console.log(error);
-        this.spinner.hide();
         this.toastr.error('Erro ao salvar alteração','Erro');
-      },
-      () => this.spinner.hide()
-    )
+      }
+    ).add(() => this.spinner.hide());
   }
 
 }
