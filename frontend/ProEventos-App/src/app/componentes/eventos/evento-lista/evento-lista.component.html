@@ -55,7 +55,7 @@
       <td class="d-none d-md-table-cell">{{evento.local}}</td>
       <td>{{evento.dataEvento | DateTimePipe}}</td>
       <td class="d-none d-md-table-cell">{{evento.qtdPessoas}}</td>
-      <td class="d-none d-md-table-cell">{{evento.lotes[0].nome}}</td>
+      <td class="d-none d-md-table-cell">{{evento.lotes[0]?.nome}}</td>
       <td>
         <div class="btn-group">
           <button class="btn btn-primary btn-sm" tooltip="Editar" (click)="detalheEvento(evento.id)">

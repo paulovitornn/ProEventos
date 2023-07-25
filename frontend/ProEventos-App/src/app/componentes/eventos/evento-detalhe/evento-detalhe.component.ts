@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
+import { Evento } from 'src/app/models/Evento';
 import { EventoService } from 'src/app/services/evento.service';
 
 @Component({
@@ -15,6 +17,7 @@ import { EventoService } from 'src/app/services/evento.service';
 export class EventoDetalheComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
+  evento = {} as Evento;
 
   loading = {
     save: false,
@@ -25,23 +28,51 @@ export class EventoDetalheComponent implements OnInit {
     return this.form.controls;
   }
 
+  get bsConfig () : any {
+    return {
+      adaptivePosition: true,
+      dateInputFormat: 'DD/MM/YYYY - HH:mm',
+      containerClass: 'theme-default',
+      showWeekNumbers: false
+     }
+  }
+
   constructor(
     private eventoService: EventoService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
-    private router: Router,
-    private fb: FormBuilder
-  ) { }
+    private router: ActivatedRoute,
+    private fb: FormBuilder,
+    private localeService: BsLocaleService
+  ) {
+    this.localeService.use('pt-br');
+  }
+
+  public carregarEvento(): void {
+    const eventoIdParam = this.router.snapshot.paramMap.get('id');
+
+    if (eventoIdParam !== null){
+      this.spinner.show();
+      this.eventoService.getEventoById(+eventoIdParam).subscribe({
+        next:(evento: Evento) => {  //aqui também poderia utilizar apenas "() => {}""
+          this.evento = {...evento}
+          this.form.patchValue(this.evento);
+        },
+        error:(error:any) => {
+          console.error(error);
+        },
+        complete:() => {
+          this.spinner.hide();
+        }
+    })
+    }
+  }
 
   ngOnInit(): void {
-    this.spinner.show();
-    this.getEventById();
+    this.validation();
+    this.carregarEvento();
   }
 
-  getEventById(){
-    this.spinner.hide();
-    this.validation();
-  }
 
   setStatusLoaginda(x:number): void{
     //1 - status loading save
@@ -62,7 +93,7 @@ export class EventoDetalheComponent implements OnInit {
       qtdPessoas: ['',[Validators.required, Validators.min(30), Validators.max(500)]],
       telefone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15)]],
       email: ['',[Validators.required, Validators.email]],
-      imagemUrl: ['', Validators.required]
+      imagemURL: ['', Validators.required]
     });
   }
 
@@ -80,12 +111,16 @@ export class EventoDetalheComponent implements OnInit {
       email: new FormControl('',
       [Validators.required, Validators.email]
       ),
-      imagemUrl: new FormControl('', Validators.required)
+      imagemURL: new FormControl('', Validators.required)
     });
   }
 
   public resetForm():void {
     this.form.reset();
+  }
+
+  public cssValidator (campoForm: FormControl): any {
+    return {'is-invalid': campoForm?.errors && campoForm?.touched};
   }
 
 }
